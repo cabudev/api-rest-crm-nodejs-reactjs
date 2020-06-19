@@ -36,14 +36,16 @@ const corsOptions = {
     }
 }
 
-//habilita cors
-app.use(cors(corsOptions));
+//carpeta publica
+app.use(express.static('uploads'));
+
+//habilita cors corsOptions
+app.use(cors());
 
 //utiliza las rutas
 app.use('/', routes());
 
-//carpeta publica
-app.use(express.static('uploads'));
+
 
 const host = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 5000;

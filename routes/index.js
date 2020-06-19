@@ -10,71 +10,65 @@ const usuariosController = require('../controllers/usuariosController');
 module.exports = function () {
 
     //Agrega nuevo cliente
-    router.post('/clientes', clientesController.nuevoCliente);
+    router.post('/clientes', auth, clientesController.nuevoCliente);
     
     //Obtiene todos los clientes
     router.get('/clientes', auth, clientesController.mostrarClientes);
 
     //Obtiene un cliente
-    router.get('/clientes/:idCliente', clientesController.mostrarCliente);
+    router.get('/clientes/:idCliente', auth, clientesController.mostrarCliente);
 
     //Actualiza un cliente
-    router.put('/clientes/:idCliente', clientesController.actualizarCliente);
+    router.put('/clientes/:idCliente', auth, clientesController.actualizarCliente);
 
     //Elimina un cliente
-    router.delete('/clientes/:idCliente', clientesController.eliminarCliente);
+    router.delete('/clientes/:idCliente', auth, clientesController.eliminarCliente);
 
 
     /** PRODUCTOS */
     //Agrega nuevo producto
-    router.post('/productos', 
+    router.post('/productos', auth, 
         productosController.subirArchivo,
         productosController.nuevoProducto
     );
 
     //Obtiene todos los productos
-    router.get('/productos', productosController.mostrarProductos);
+    router.get('/productos', auth, productosController.mostrarProductos);
 
     //Obtiene un producto
-    router.get('/productos/:idProducto', productosController.mostrarProducto);
+    router.get('/productos/:idProducto', auth, productosController.mostrarProducto);
 
     //Actualiza un producto
-    router.put('/productos/:idProducto', 
+    router.put('/productos/:idProducto', auth, 
         productosController.subirArchivo,
         productosController.actualizarProducto
     );
     
     //Elimina un producto
-    router.delete('/productos/:idProducto', productosController.eliminarProducto);
+    router.delete('/productos/:idProducto', auth, productosController.eliminarProducto);
 
     //Busca un producto
-    router.post('/productos/buscar/:query', productosController.buscarProducto);
+    router.post('/productos/buscar/:query', auth, productosController.buscarProducto);
 
     /** PEDIDOS */
     //Agrega nuevo pedido
-    router.post('/pedidos/nuevo/:idUsuario', pedidosController.nuevoPedido);
+    router.post('/pedidos/nuevo/:idUsuario', auth, pedidosController.nuevoPedido);
         
     //Obtiene todos los pedidos
-    router.get('/pedidos', pedidosController.mostrarPedidos);
+    router.get('/pedidos', auth, pedidosController.mostrarPedidos);
 
     //Obtiene un pedido
-    router.get('/pedidos/:idPedido', pedidosController.mostrarPedido);
+    router.get('/pedidos/:idPedido', auth, pedidosController.mostrarPedido);
 
     //Actualiza un producto
-    router.put('/pedidos/:idPedido', pedidosController.actualizarPedido);
+    router.put('/pedidos/:idPedido', auth, pedidosController.actualizarPedido);
     
     //Eliminar un pedido
-    router.delete('/pedidos/:idPedido', pedidosController.eliminarPedido);
+    router.delete('/pedidos/:idPedido', auth, pedidosController.eliminarPedido);
 
-    router.post('/crear-cuenta',
-    usuariosController.registrarUsuario,
+    router.post('/crear-cuenta', usuariosController.registrarUsuario);
 
-    );
-
-    router.post('/iniciar-sesion',
-    usuariosController.autenticarUsuario,
-    );
-
+    router.post('/iniciar-sesion', usuariosController.autenticarUsuario);
 
     return router;
 }
